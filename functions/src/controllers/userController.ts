@@ -15,6 +15,7 @@ call the repository layers directly or if logic is required they call a services
 
 export class UserController {
     constructor(private userRepo: UserRepository, private userService: UserService) {
+        console.log(this.userService)
     }
 
     public async getAllUsers(req: Request, res: Response) {
@@ -84,11 +85,7 @@ export class UserController {
                 return res.status(400).json({ errors: errors.array() });
             }
 
-            const userIM: UserIM = {
-                id: req.body.id,
-                name: req.body.name,
-                surname: req.body.surname
-            }
+            const userIM: UserIM = UserIM.parse(req.body)
 
             const user = await this.userRepo.createUser(userIM)
 

@@ -7,7 +7,7 @@ import {body} from "express-validator";
 
 // Instantiate the repos and services required for this controller
 const userRepo = new UserRepository()
-const userService = new UserService(userRepo)
+const userService = new UserService()
 const userController = new UserController(userRepo, userService)
 
 const userRouter = Router()
@@ -21,7 +21,7 @@ userRouter.get('/get-all', (req: Request, res: Response) => userController.getAl
 
 // we use express-validators to check whether the correct fields are sent in the request
 userRouter.post('/',
-    isAuthenticated,
+    // isAuthenticated,
     body('name').exists().isString(),
     body('surname').exists().isString(),
     (req: Request, res: Response) => userController.createUser(req, res))

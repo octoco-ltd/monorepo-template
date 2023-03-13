@@ -1,8 +1,7 @@
 import {NotFoundError} from "../utils/errors";
-import {User, PrismaClient} from "@prisma/client";
+import prisma from '../client'
+import {User} from "@prisma/client";
 import {UserIM} from "../models/userModel";
-
-const prisma = new PrismaClient()
 
 
 /*

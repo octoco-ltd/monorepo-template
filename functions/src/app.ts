@@ -1,6 +1,7 @@
 import express, {Request, Response} from 'express';
 import cors from "cors";
 import morgan from 'morgan';
+import userRouter from "./routes/userRoutes";
 
 class App {
     public app: express.Application;
@@ -36,6 +37,7 @@ class App {
         this.app.get("/", (req, res) => {
             res.send(`Octoco API is running!`);
         });
+        this.app.use('/users', userRouter)
 
     }
 
