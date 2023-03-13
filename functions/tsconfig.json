@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es6",
+    "esModuleInterop": true,
+    "useUnknownInCatchVariables": false,
+    "noImplicitAny": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src",
+    "src/*",
+    "src/**/*",
+    "../package.json"
+  ],
+  "exclude": [
+    "tests",
+    "../../../node_modules/",
+    "./node_modules",
+    "./dist/"
+  ]
+}
