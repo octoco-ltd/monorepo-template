@@ -21,7 +21,7 @@ userRouter.get('/get-all', (req: Request, res: Response) => userController.getAl
 
 // we use express-validators to check whether the correct fields are sent in the request
 userRouter.post('/',
-    // isAuthenticated,
+    // isAuthenticated, // Middleware commented out for unit tests. You can get JWT tokens for unitests and Supertest
     body('name').exists().isString(),
     body('surname').exists().isString(),
     (req: Request, res: Response) => userController.createUser(req, res))
