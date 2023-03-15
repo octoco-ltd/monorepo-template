@@ -4,10 +4,12 @@ import {UserService} from "../services/userService";
 import {UserController} from "../controllers/userController";
 import {isAuthenticated} from "../utils/middleware";
 import {body} from "express-validator";
+import {prisma} from "../prisma/client";
+
 
 // Instantiate the repos and services required for this controller
-const userRepo = new UserRepository()
-const userService = new UserService()
+const userRepo = new UserRepository({prisma})
+const userService = new UserService(userRepo)
 const userController = new UserController(userRepo, userService)
 
 const userRouter = Router()

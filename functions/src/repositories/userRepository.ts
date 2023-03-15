@@ -1,7 +1,7 @@
 import {NotFoundError} from "../utils/errors";
-import prisma from '../client'
 import {User} from "@prisma/client";
 import {UserIM} from "../models/userModel";
+import {Context} from "../prisma/context";
 
 
 /*
@@ -14,7 +14,7 @@ WE DO NOT HAVE ANY TRY CATCH BLOCKS IN THIS LAYER
  */
 
 
-export interface UserRepository {
+export interface IUserRepository {
     /*
     This is the interface for the UserRepository. It contains the list of functions which must be present in the actual
     repository and its in-Memory version
@@ -22,21 +22,26 @@ export interface UserRepository {
     getAllUsers()
     getUserById(id: string)
     createUser(userIM: UserIM): Promise<User>
+    getLastAddedUserInDB(): Promise<User>
 }
 
-export class UserRepository implements UserRepository{
+export class UserRepository implements IUserRepository{
+
+    constructor(private ctx: Context) {
+    }
+
     public async getAllUsers(): Promise<User[]> {
         /*
         This function gets all the users in the User Repository
          */
-        return prisma.user.findMany({})
+        return this.ctx.prisma.user.findMany({})
     }
 
     public async getUserById(id: string): Promise<User> {
         /*
         This function gets a specific user from the DB by id
          */
-        const user = await prisma.user.findUnique({where: {id}})
+        const user = await this.ctx.prisma.user.findUnique({where: {id}})
         if (!user) throw new NotFoundError(`UserRepository - getUserById - user with id: ${id} not found`)
         return user
     }
@@ -45,7 +50,20 @@ export class UserRepository implements UserRepository{
         /*
         This function creates a user in the DB
          */
-        return prisma.user.create({data: userIM})
+        return this.ctx.prisma.user.create({data: userIM})
+    }
+
+    public async getLastAddedUserInDB(): Promise<User> {
+        /*
+        This function gets the last added user in the DB
+         */
+        const users = this.ctx.prisma.user.findMany({
+            orderBy: [{
+                createdAt: 'desc'
+            }],
+            take: 1
+        })
+        return users[0]
     }
 
 }

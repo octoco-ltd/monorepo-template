@@ -1,18 +1,15 @@
 
 /*
-Service layers contain the logic or requests to 3rd parties. These layers can call any repository and also implement
-inversion of control for tests
+    Your services layer will typically contain all the logic and requests to third parties. For that reason we create
+    a stubbed, in-memory version which implement the real service's interface
  */
 
+import {IUserService} from "../services/userService";
 import {IUserRepository} from "../repositories/userRepository";
-import {UserIM} from "../models/userModel";
 import {User} from "@prisma/client";
+import {UserIM} from "../models/userModel";
 
-export interface IUserService {
-    createNewUserBasedOnLastUserAddedToDB(): Promise<User>
-}
-
-export class UserService implements IUserService {
+export class InMemoryUserService implements IUserService {
     constructor(private userRepo: IUserRepository) {
     }
 
@@ -27,4 +24,5 @@ export class UserService implements IUserService {
 
         return await this.userRepo.createUser(newUserIM)
     }
+
 }

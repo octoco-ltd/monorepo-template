@@ -1,9 +1,9 @@
 import {Request, Response} from "express";
-import {UserRepository} from "../repositories/userRepository";
+import {IUserRepository} from "../repositories/userRepository";
 import {ResultWithValue} from "../models/result";
 import * as httpCodes from "http-status-codes";
 import {errorStatusCode} from "../utils/errors";
-import {UserService} from "../services/userService";
+import {IUserService} from "../services/userService";
 import {validationResult} from "express-validator";
 import {UserIM} from "../models/userModel";
 
@@ -14,7 +14,7 @@ call the repository layers directly or if logic is required they call a services
  */
 
 export class UserController {
-    constructor(private userRepo: UserRepository, private userService: UserService) {
+    constructor(private userRepo: IUserRepository, private userService: IUserService) {
         console.log(this.userService)
     }
 

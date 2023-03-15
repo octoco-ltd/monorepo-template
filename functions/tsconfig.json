@@ -21,7 +21,8 @@
     "../package.json"
   ],
   "exclude": [
-    "tests",
+    "src/**/*.test.ts",
+    "./tests",
     "../../../node_modules/",
     "./node_modules",
     "./dist/"
