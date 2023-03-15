@@ -3,6 +3,7 @@
     "resolveJsonModule": true,
     "module": "commonjs",
     "noImplicitReturns": true,
+    "strictNullChecks": true,
     "noUnusedLocals": true,
     "rootDir": "src",
     "outDir": "dist",

@@ -19,8 +19,8 @@ export interface IUserRepository {
     This is the interface for the UserRepository. It contains the list of functions which must be present in the actual
     repository and its in-Memory version
      */
-    getAllUsers()
-    getUserById(id: string)
+    getAllUsers():Promise<User[]>
+    getUserById(id: string):Promise<User>
     createUser(userIM: UserIM): Promise<User>
     getLastAddedUserInDB(): Promise<User>
 }
